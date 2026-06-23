@@ -17,13 +17,5 @@ jobs:
         with:
           go-version: '1.21'
 
-      - name: Generate scaleconnect.yaml dynamically
-        run: |
-          cat <<EOF > scaleconnect.yaml
-          sync_garmin:
-            from: xiaomihome ${{ secrets.XIAOMI_USER }} ${{ secrets.XIAOMI_PASS }} ru yunmai.scales.ms104
-            to: garmin ${{ secrets.GARMIN_USER }} ${{ secrets.GARMIN_PASS }}
-          EOF
-
       - name: Run SmartScaleConnect (Go)
         run: go run main.go
