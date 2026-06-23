@@ -9,10 +9,22 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Run SmartScaleConnect
-        uses: docker://ghcr.io/alexxit/smartscaleconnect:master
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-python: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Sync Script
         env:
           XIAOMI_USER: ${{ secrets.XIAOMI_USER }}
           XIAOMI_PASS: ${{ secrets.XIAOMI_PASS }}
           GARMIN_USER: ${{ secrets.GARMIN_USER }}
           GARMIN_PASS: ${{ secrets.GARMIN_PASS }}
+        run: python main.py
