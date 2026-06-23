@@ -1,0 +1,24 @@
+name: Garmin Weight Sync
+
+on:
+  schedule:
+    # Запуск кожні 2 години
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+    # Дозволяє запускати сценарій вручну кнопкою
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run SmartScaleConnect
+        run: |
+          docker run --rm \
+            -e XIAOMI_USER="${{ secrets.XIAOMI_USER }}" \
+            -e XIAOMI_PASS="${{ secrets.XIAOMI_PASS }}" \
+            -e GARMIN_USER="${{ secrets.GARMIN_USER }}" \
+            -e GARMIN_PASS="${{ secrets.GARMIN_PASS }}" \
+            ghcr.io/alexxit/smartscaleconnect:master
