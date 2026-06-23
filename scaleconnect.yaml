@@ -1,0 +1,3 @@
+sync_garmin:
+  from: xiaomihome $XIAOMI_USER $XIAOMI_PASS ru yunmai.scales.ms104
+  to: garmin $GARMIN_USER $GARMIN_PASS
